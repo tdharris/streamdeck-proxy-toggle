@@ -1,0 +1,46 @@
+{
+	"Name": "Proxy Toggle",
+	"Version": "1.0.0.0",
+	"Author": "tdharris",
+	"Actions": [
+		{
+			"Name": "Toggle Proxy",
+			"UUID": "com.tdharris.proxy-toggle.toggle",
+			"Icon": "imgs/plugin/category-icon",
+			"Tooltip": "Toggles the Windows Proxy Settings ON and OFF.",
+			"Controllers": ["Keypad"],
+			"States": [
+				{
+					"Image": "imgs/actions/toggle-proxy/key-off",
+					"TitleAlignment": "bottom",
+					"Title": ""
+				},
+				{
+					"Image": "imgs/actions/toggle-proxy/key-on",
+					"TitleAlignment": "bottom",
+					"Title": ""
+				}
+			]
+		}
+	],
+	"Category": "Proxy Toggle",
+	"CategoryIcon": "imgs/plugin/category-icon",
+	"CodePath": "bin/plugin.js",
+	"Description": "Toggle the Windows Proxy Settings ON and OFF.",
+	"Icon": "imgs/plugin/category-icon",
+	"SDKVersion": 2,
+	"Software": {
+		"MinimumVersion": "6.4"
+	},
+	"OS": [
+		{
+			"Platform": "windows",
+			"MinimumVersion": "10"
+		}
+	],
+	"Nodejs": {
+		"Version": "20",
+		"Debug": "enabled"
+	},
+	"UUID": "com.tdharris.proxy-toggle"
+}
