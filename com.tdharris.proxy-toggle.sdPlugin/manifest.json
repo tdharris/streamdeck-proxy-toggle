@@ -8,15 +8,17 @@
 			"UUID": "com.tdharris.proxy-toggle.toggle",
 			"Icon": "imgs/plugin/category-icon",
 			"Tooltip": "Toggles the Windows Proxy Settings ON and OFF.",
-			"Controllers": ["Keypad"],
+			"Controllers": [
+				"Keypad"
+			],
 			"States": [
 				{
-					"Image": "imgs/actions/toggle-proxy/key-off",
+					"Image": "imgs/actions/toggle-proxy/icon-off",
 					"TitleAlignment": "bottom",
 					"Title": ""
 				},
 				{
-					"Image": "imgs/actions/toggle-proxy/key-on",
+					"Image": "imgs/actions/toggle-proxy/icon-on",
 					"TitleAlignment": "bottom",
 					"Title": ""
 				}
