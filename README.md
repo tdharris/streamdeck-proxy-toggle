@@ -36,7 +36,7 @@ You can build the plugin from source (on Windows):
 3. Pack the plugin:
 
     ```bash
-    streamdeck pack com.elgato.hello-world.sdPlugin
+    streamdeck pack com.tdharris.proxy-toggle.sdPlugin
     ```
 
 4. Run the plugin by double-clicking the `com.tdharris.proxy-toggle.streamDeckPlugin` file.
