@@ -1,28 +1,34 @@
-import { action, KeyDownEvent, SingletonAction, Target, WillAppearEvent } from "@elgato/streamdeck";
+import { action, KeyUpEvent, SingletonAction, Target, WillAppearEvent } from "@elgato/streamdeck";
 import { KeyImage } from "./../modules/key-image";
 import { execSync } from "node:child_process";
 
-@action({ UUID: "com.tdharris.proxy-toggle.toggle" })
-export class ToggleProxy extends SingletonAction {
-	override async onWillAppear(ev: WillAppearEvent): Promise<void> {
-		if (!ev.action.isKey()) return;
-		// If we don't have a title key already, set it
-		return ev.action.setState(0);
-	}
+type ProxySettings = { isEnabled?: boolean };
 
-	override async onKeyDown(ev: KeyDownEvent): Promise<void> {
-		try {
+@action({ UUID: "com.tdharris.proxy-toggle.toggle" })
+export class ToggleProxy extends SingletonAction<ProxySettings> {
+	override async onWillAppear(ev: WillAppearEvent<ProxySettings>): Promise<void> {
+		if (!ev.action.isKey()) return;
+		const { settings } = ev.payload;
+		if (settings.isEnabled === undefined) {
 			const key = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings";
 			const output = execSync(`reg query "${key}" /v ProxyEnable`, { encoding: "utf-8" });
-			// Current "ProxyEnable" (1 = ON, 0 = OFF)
-			let isEnabled = output.includes("0x1");
+			settings.isEnabled = output.includes("0x1");
+			await ev.action.setSettings(settings);
+		}
+		await ev.action.setState(settings?.isEnabled || false ? 1 : 0);
+	}
 
-			// Toggle to the opposite
-			execSync(`reg add "${key}" /v ProxyEnable /t REG_DWORD /d ${isEnabled ? 0 : 1} /f`);
-			isEnabled = !isEnabled;
-
-			// Switch Key State
-			await ev.action.setState(isEnabled ? 0 : 1);
+	override async onKeyUp(ev: KeyUpEvent<ProxySettings>): Promise<void> {
+		try {
+			const { settings } = ev.payload;
+			const key = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings";
+			const output = execSync(`reg query "${key}" /v ProxyEnable`, { encoding: "utf-8" });
+			const isEnabled = output.includes("0x1");
+			const newEnabled = !isEnabled;
+			execSync(`reg add "${key}" /v ProxyEnable /t REG_DWORD /d ${newEnabled ? 1 : 0} /f`);
+			settings.isEnabled = newEnabled;
+			await ev.action.setSettings(settings);
+			await ev.action.setState(newEnabled ? 1 : 0);
 		} catch(e) {
 			console.error(e);
 			await ev.action.setImage(KeyImage("#ff0000"));
