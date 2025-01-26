@@ -12,7 +12,7 @@ Toggle Proxy plugin for Elgato Stream Deck.
 
 ### Install from the Elgato Stream Deck Store
 
-[com.tdharris.toggle-proxy](https://apps.elgato.com/plugins/com.tdharris.toggle-proxy)
+[proxy-toggle]([https://apps.elgato.com/plugins/com.tdharris.toggle-proxy](https://marketplace.elgato.com/product/proxy-toggle-6f4af21d-8f9b-41e0-ba80-bcaac3725ae3))
 
 ### Or Download and Install Manually
 
